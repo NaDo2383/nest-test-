@@ -6,10 +6,10 @@ import { Todo } from './todo.entity';
 export class TodosController {
   constructor(private readonly todoService: TodosService) {}
 
-  @Post()
-  create(@Body() createTodoDto: Todo) {
-    return this.todoService.create(createTodoDto);
-  }
+  //   @Post()
+  //   create(@Body() createTodoDto: Todo) {
+  //     return this.todoService.create(createTodoDto);
+  //   }
 
   @Get()
   findAll() {
