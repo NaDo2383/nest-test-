@@ -1,15 +1,15 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { TodosService } from './todos.service';
 import { Todo } from './todo.entity';
 
-@Controller('todos')
+@Controller('todo')
 export class TodosController {
   constructor(private readonly todoService: TodosService) {}
 
-  //   @Post()
-  //   create(@Body() createTodoDto: Todo) {
-  //     return this.todoService.create(createTodoDto);
-  //   }
+  @Post()
+  create(@Body() createTodo: Todo) {
+    return this.todoService.create(createTodo);
+  }
 
   @Get()
   findAll() {
@@ -18,6 +18,11 @@ export class TodosController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.todoService.findOne(+id);
+    return this.todoService.findOne(id);
+  }
+
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    return this.todoService.remove(id);
   }
 }

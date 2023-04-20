@@ -1,0 +1,20 @@
+###
+GET http://localhost:3000/todo
+
+
+###
+GET http://localhost:3000/todo/6440a213d5ddc5c551c09c2f
+
+###
+POST  http://localhost:3000/todo
+Content-Type: application/json
+
+{
+    "taskName":"asad",
+    "isDone": false
+}
+
+
+###
+DELETE  http://localhost:3000/todo/6440a213d5ddc5c551c09c2f
+

@@ -1,18 +1,19 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { timeStamp } from 'console';
 import { Date } from 'mongoose';
 
-@Schema()
+@Schema({ timestamps: true })
 export class Todo {
   @Prop()
   taskName: string;
 
-  @Prop()
+  @Prop({ type: Date })
   createDate: Date;
 
   @Prop()
   isDone: boolean;
 }
 
-export type TodoDocument = Todo & Document;
+// export type TodoDocument = Todo & Document;
 
 export const todoListSchema = SchemaFactory.createForClass(Todo);

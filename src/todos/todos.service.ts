@@ -1,23 +1,34 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { TodoDocument } from './todo.entity';
+import { Todo } from './todo.entity';
 
 @Injectable()
 export class TodosService {
-  constructor(
-    @InjectModel('Todo') private readonly todoListModel: Model<TodoDocument>,
-  ) {}
+  constructor(@InjectModel('Todo') private readonly todoModel: Model<Todo>) {}
 
-  create() {
-    return `This action create todos`;
+  async create(todo: Todo) {
+    if (todo.taskName === '') {
+      throw new BadRequestException('taskname required');
+    }
+
+    const newTodo = new this.todoModel(todo);
+    const result = await newTodo.save();
+    return result;
   }
 
-  findAll() {
-    return `This action returns all todos`;
+  async findAll() {
+    const result = await this.todoModel.find({});
+    return result;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} todo`;
+  async findOne(_id: string) {
+    const result = await this.todoModel.findById({ _id });
+    return result;
+  }
+
+  async remove(_id: string) {
+    const result = await this.todoModel.findByIdAndDelete({ _id });
+    return result;
   }
 }
